@@ -68,3 +68,21 @@ t_test_student <- t.test(
 
 cat("\nStudent's Two Sample t-test:\n")
 print(t_test_student)
+
+# Effect Size: Cohen's d
+
+pooled_sd <- sqrt(
+  ((length(male_salaries) - 1) * sd(male_salaries)^2 +
+   (length(female_salaries) - 1) * sd(female_salaries)^2) /
+  (length(male_salaries) + length(female_salaries) - 2)
+)
+
+cohens_d <- (mean(male_salaries) - mean(female_salaries)) / pooled_sd
+
+cat("\nEffect Size (Cohen's d):", round(cohens_d, 4), "\n")
+
+cat("Interpretation: ",
+    ifelse(abs(cohens_d) < 0.2, "negligible effect",
+           ifelse(abs(cohens_d) < 0.5, "small effect",
+                  ifelse(abs(cohens_d) < 0.8, "medium effect", "large effect"))),
+    "\n")
