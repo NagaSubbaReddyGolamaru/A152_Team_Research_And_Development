@@ -40,3 +40,22 @@ if (chi_test$p.value < 0.05) {
   cat("Conclusion: Fail to reject H0. No statistically significant relationship between gender and salary category.\n")
   cat("Interpretation: Salary levels do NOT differ by gender in categorical distribution.\n")
 }
+
+# STEP 6 (Part 3): EXPECTED FREQUENCIES & ASSUMPTION CHECK
+
+cat("\n=== EXPECTED FREQUENCIES ===\n")
+print(round(chi_test$expected, 2))
+
+# Check if any expected cell value < 5
+low_exp <- chi_test$expected < 5
+num_low_exp <- sum(low_exp)
+
+cat("\nNumber of expected frequencies < 5: ", num_low_exp, "\n")
+
+if (num_low_exp > 0) {
+  cat("Warning: Chi-Square assumption violated! Some expected frequencies are below 5.\n")
+  cat("Interpretation: Results may not be reliable — consider Fisher's Exact Test.\n")
+} else {
+  cat("All expected frequencies are ≥ 5.\n")
+  cat("Chi-Square test assumptions are satisfied.\n")
+}
