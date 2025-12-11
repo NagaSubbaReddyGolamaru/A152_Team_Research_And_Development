@@ -69,3 +69,40 @@ hist_female <- ggplot(data_clean %>% filter(gender == "Female"),
   theme_minimal()
 
 print(hist_female)
+
+# Boxplot comparison between Male and Female Salaries
+boxplot_comparison <- ggplot(data_clean, aes(x = gender_group, y = salary_numeric, 
+                                             fill = gender_group)) +
+  geom_boxplot(alpha = 0.7) +
+  scale_fill_manual(values = c("Male" = "steelblue", 
+                               "Female" = "coral")) +
+  scale_y_continuous(labels = dollar_format(prefix = "$", big.mark = ",")) +
+  labs(title = "Annual Salary Comparison: Male vs Female",
+       x = "Gender",
+       y = "Annual Salary (USD)") +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold", size = 14),
+        axis.title = element_text(size = 12),
+        axis.text = element_text(size = 10))
+
+print(boxplot_comparison)
+
+# Violin plot for Salary Distribution (Male vs Female)
+violin_comparison <- ggplot(data_clean, aes(x = gender_group, y = salary_numeric, 
+                                            fill = gender_group)) +
+  geom_violin(alpha = 0.7) +
+  geom_boxplot(width = 0.1, alpha = 0.5) +
+  scale_fill_manual(values = c("Male" = "steelblue", 
+                               "Female" = "coral")) +
+  scale_y_continuous(labels = dollar_format(prefix = "$", big.mark = ",")) +
+  labs(title = "Salary Distribution Comparison with Violin Plot",
+       subtitle = "Male vs Female Data Scientists",
+       x = "Gender",
+       y = "Annual Salary (USD)") +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold", size = 14),
+        plot.subtitle = element_text(hjust = 0.5, size = 11),
+        axis.title = element_text(size = 12),
+        axis.text = element_text(size = 10))
+
+print(violin_comparison)
