@@ -44,3 +44,27 @@ cat("Interpretation: ",
            "Variances are SIGNIFICANTLY different - use Welch's t-test",
            "Variances are equal - can use Student's t-test"),
     "\n")
+
+cat("\n=== PARAMETRIC TESTS: T-TESTS ===\n")
+
+# Welch's t-test (recommended when variances differ)
+t_test_welch <- t.test(
+  male_salaries,
+  female_salaries,
+  alternative = "two.sided",
+  var.equal = FALSE
+)
+
+cat("\nWelch Two Sample t-test (RECOMMENDED):\n")
+print(t_test_welch)
+
+# Student's t-test (only if variances are equal)
+t_test_student <- t.test(
+  male_salaries,
+  female_salaries,
+  alternative = "two.sided",
+  var.equal = TRUE
+)
+
+cat("\nStudent's Two Sample t-test:\n")
+print(t_test_student)
