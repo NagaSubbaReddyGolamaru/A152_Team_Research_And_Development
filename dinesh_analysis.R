@@ -16,3 +16,27 @@ print(contingency_table)
 
 cat("\n")
 print(addmargins(contingency_table))
+
+# STEP 6 (Part 2): CHI-SQUARE TEST FOR INDEPENDENCE
+
+chi_test <- chisq.test(contingency_table)
+
+cat("\n=== CHI-SQUARE TEST FOR INDEPENDENCE ===\n")
+print(chi_test)
+
+cat("\n--- INTERPRETATION ---\n")
+
+cat("Null Hypothesis (H0): Gender and salary category are independent.\n")
+cat("Alternative Hypothesis (H1): Gender and salary category are NOT independent.\n\n")
+
+cat("Chi-square statistic: ", round(chi_test$statistic, 4), "\n")
+cat("Degrees of freedom: ", chi_test$parameter, "\n")
+cat("P-value: ", chi_test$p.value, "\n\n")
+
+if (chi_test$p.value < 0.05) {
+  cat("Conclusion: Reject H0. There is a SIGNIFICANT association between gender and salary category.\n")
+  cat("Interpretation: Salary levels differ between genders.\n")
+} else {
+  cat("Conclusion: Fail to reject H0. No statistically significant relationship between gender and salary category.\n")
+  cat("Interpretation: Salary levels do NOT differ by gender in categorical distribution.\n")
+}
