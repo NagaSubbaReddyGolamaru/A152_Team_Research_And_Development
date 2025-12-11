@@ -32,3 +32,15 @@ if (length(female_salaries) > 500) {
 cat("\n** INTERPRETATION OF NORMALITY TESTS **")
 cat("\nBoth p-values < 0.05 indicate departure from normality.")
 cat("\nThis suggests using non-parametric tests as a robustness check.\n")
+
+cat("\n=== VARIANCE EQUALITY TEST ===\n")
+
+levene_test <- var.test(male_salaries, female_salaries)
+
+cat("F-statistic =", levene_test$statistic, ", p-value =", levene_test$p.value, "\n")
+
+cat("Interpretation: ",
+    ifelse(levene_test$p.value < 0.05,
+           "Variances are SIGNIFICANTLY different - use Welch's t-test",
+           "Variances are equal - can use Student's t-test"),
+    "\n")
